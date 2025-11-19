@@ -1,47 +1,868 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My First Website</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #F0F0F0;
-        }
-        nav {
-            background-color: #31EC56;
-            padding: 10px;
-            display: flex;
-            justify-content: space-around;
-        }
-        nav a {
-            text-decoration: none;
-            color: white;
-            background-color: #EF036C;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 1em;
-            font-weight: bold;
-        }
-        nav a:hover {
-            background-color: #EE72F8;
-        }
-        h1 {
-            font-size: 2em;
-            font-weight: bold;
-            color: #31EC56;
-            text-align: center;
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Name - IT Professional</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-gradient-1: #0f172a;
+      --bg-gradient-2: #1e293b;
+      --card-bg: rgba(15, 23, 42, 0.6);
+      --card-border: rgba(148, 163, 184, 0.1);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --accent-primary: #3b82f6;
+      --accent-secondary: #8b5cf6;
+      --accent-glow: rgba(59, 130, 246, 0.3);
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated background particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      background: var(--accent-primary);
+      border-radius: 50%;
+      opacity: 0.1;
+      animation: float 20s infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.1); }
+      66% { transform: translate(-20px, 20px) scale(0.9); }
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hero section with glassmorphism */
+    .hero {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 4rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      animation: glow 8s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { transform: translate(0, 0); opacity: 0.5; }
+      50% { transform: translate(-20px, -20px); opacity: 0.8; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+      animation: slideInLeft 0.8s ease-out;
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .hero h2 {
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+      margin-bottom: 2rem;
+      animation: slideInLeft 0.8s ease-out 0.2s both;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      animation: slideInLeft 0.8s ease-out 0.4s both;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+      transition: all 0.3s ease;
+    }
+
+    .hero-meta-item:hover {
+      color: var(--accent-primary);
+      transform: translateY(-2px);
+    }
+
+    .hero-meta-item::before {
+      content: '●';
+      color: var(--accent-primary);
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 1rem;
+      animation: slideInLeft 0.8s ease-out 0.6s both;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+      color: white;
+      box-shadow: 0 4px 15px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px var(--accent-glow);
+    }
+
+    .btn-secondary {
+      background: var(--card-bg);
+      color: var(--text-primary);
+      border: 1px solid var(--card-border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-primary);
+      transform: translateY(-2px);
+    }
+
+    /* Grid layout for main content */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+
+    .card-full {
+      grid-column: 1 / -1;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 1.5rem;
+      background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
+      border-radius: 2px;
+    }
+
+    /* Skills with progress bars */
+    .skills-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .skill-item {
+      background: rgba(15, 23, 42, 0.4);
+      border-radius: 12px;
+      padding: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .skill-item:hover {
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .skill-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .skill-level {
+      color: var(--accent-primary);
+      font-size: 0.9rem;
+    }
+
+    .skill-bar {
+      height: 6px;
+      background: rgba(148, 163, 184, 0.2);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .skill-progress {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+      border-radius: 3px;
+      transition: width 1s ease;
+    }
+
+    /* Experience timeline */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent-primary), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+      padding-left: 1rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.35rem;
+      top: 0.5rem;
+      width: 12px;
+      height: 12px;
+      background: var(--accent-primary);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px var(--bg-gradient-1), 0 0 10px var(--accent-glow);
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .timeline-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .timeline-company {
+      color: var(--accent-primary);
+      font-weight: 600;
+    }
+
+    .timeline-date {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .timeline-date::before {
+      content: '📅';
+    }
+
+    .timeline-description {
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .timeline-achievements {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .timeline-achievements li {
+      padding-left: 1.5rem;
+      position: relative;
+      color: var(--text-secondary);
+    }
+
+    .timeline-achievements li::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--accent-primary);
+      font-weight: bold;
+    }
+
+    /* Certifications with badges */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .cert-badge {
+      background: rgba(15, 23, 42, 0.4);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .cert-badge:hover {
+      border-color: var(--accent-primary);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.2);
+    }
+
+    .cert-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .cert-name {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .cert-date {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* Projects showcase */
+    .project-card {
+      background: rgba(15, 23, 42, 0.4);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent-primary);
+      background: rgba(59, 130, 246, 0.05);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .project-links {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .project-link {
+      padding: 0.4rem 0.8rem;
+      background: rgba(59, 130, 246, 0.1);
+      border-radius: 8px;
+      color: var(--accent-primary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+    }
+
+    .project-link:hover {
+      background: rgba(59, 130, 246, 0.2);
+    }
+
+    .project-description {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tech-tag {
+      padding: 0.4rem 0.8rem;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--accent-secondary);
+      transition: all 0.3s ease;
+    }
+
+    .tech-tag:hover {
+      background: rgba(139, 92, 246, 0.2);
+      transform: scale(1.05);
+    }
+
+    /* Stats cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-primary);
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero {
+        padding: 2rem;
+      }
+
+      .cert-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Print styles */
+    @media print {
+      body {
+        background: white;
+      }
+      
+      .particles, .btn, .hero::before {
+        display: none !important;
+      }
+
+      .card {
+        break-inside: avoid;
+      }
+    }
+  </style>
 </head>
 <body>
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#resume">Resume</a>
-    </nav>
-    <h1>Welcome to Cyberific!</h1>
-    <p>Hello world</p>
-</body>
-</html>
+  <div class="particles" id="particles"></div>
+
+  <div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Your Name</h1>
+        <h2>IT Operations & Cybersecurity Specialist</h2>
+        
+        <div class="hero-meta">
+          <div class="hero-meta-item">Sacramento, CA</div>
+          <div class="hero-meta-item">Open to Remote/Hybrid</div>
+          <div class="hero-meta-item">you@example.com</div>
+          <div class="hero-meta-item">(555) 555-5555</div>
+        </div>
+
+        <div class="hero-links">
+          <a href="mailto:you@example.com" class="btn btn-primary">Contact Me</a>
+          <a href="https://linkedin.com/in/yourprofile" target="_blank" class="btn btn-secondary">LinkedIn</a>
+          <a href="https://github.com/yourusername" target="_blank" class="btn btn-secondary">GitHub</a>
+          <button class="btn btn-secondary" onclick="window.print()">Download PDF</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Overview -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">5+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Users Supported</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">95%</div>
+        <div class="stat-label">SLA Success Rate</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">12+</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="content-grid">
+      <!-- Summary -->
+      <div class="card card-full">
+        <h3 class="section-title">Professional Summary</h3>
+        <p style="font-size: 1.05rem; color: var(--text-secondary);">
+          Results-driven IT professional with 5+ years of experience in infrastructure management, cybersecurity, and 
+          technical support. Proven track record of improving system reliability by 40%, reducing security incidents through 
+          proactive monitoring, and delivering exceptional end-user support across 500+ endpoints. Passionate about leveraging 
+          emerging technologies to solve complex business challenges and enhance operational efficiency.
+        </p>
+      </div>
+
+      <!-- Skills -->
+      <div class="card">
+        <h3 class="section-title">Technical Skills</h3>
+        <div class="skills-grid">
+          <div class="skill-item">
+            <div class="skill-header">
+              <span>Cloud Platforms (Azure, AWS)</span>
+              <span class="skill-level">Expert</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 90%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header">
+              <span>Cybersecurity & Compliance</span>
+              <span class="skill-level">Advanced</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 85%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header">
+              <span>Network Administration</span>
+              <span class="skill-level">Advanced</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 80%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header">
+              <span>PowerShell & Automation</span>
+              <span class="skill-level">Expert</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 88%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header">
+              <span>Windows/macOS/Linux</span>
+              <span class="skill-level">Expert</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 92%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="card">
+        <h3 class="section-title">Certifications</h3>
+        <div class="cert-grid">
+          <div class="cert-badge">
+            <div class="cert-icon">🛡️</div>
+            <div class="cert-name">CompTIA Security+</div>
+            <div class="cert-date">2023</div>
+          </div>
+          <div class="cert-badge">
+            <div class="cert-icon">🌐</div>
+            <div class="cert-name">CompTIA Network+</div>
+            <div class="cert-date">2023</div>
+          </div>
+          <div class="cert-badge">
+            <div class="cert-icon">☁️</div>
+            <div class="cert-name">AWS Cloud Practitioner</div>
+            <div class="cert-date">2024</div>
+          </div>
+          <div class="cert-badge">
+            <div class="cert-icon">⚡</div>
+            <div class="cert-name">Azure Fundamentals</div>
+            <div class="cert-date">2024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Experience -->
+    <div class="card card-full">
+      <h3 class="section-title">Professional Experience</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-title">IT Operations Specialist</div>
+              <div class="timeline-company">Tech Company Inc. • Sacramento, CA</div>
+            </div>
+            <div class="timeline-date">Jan 2022 – Present</div>
+          </div>
+          <div class="timeline-description">
+            Leading infrastructure management and security initiatives for a mid-sized technology firm with 500+ endpoints.
+          </div>
+          <ul class="timeline-achievements">
+            <li>Achieved 95% SLA compliance rate by implementing automated ticket triage system using PowerShell, reducing average resolution time by 30%</li>
+            <li>Spearheaded Windows 11 migration project for 120 endpoints with zero critical incidents, completing 2 weeks ahead of schedule</li>
+            <li>Reduced security incidents by 40% through deployment of MFA, EDR tools (CrowdStrike), and comprehensive security awareness training program</li>
+            <li>Automated routine maintenance tasks using PowerShell and Azure Automation, saving 15 hours/week of manual effort</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-title">IT Support Engineer</div>
+              <div class="timeline-company">Previous Company LLC • Remote</div>
+            </div>
+            <div class="timeline-date">Jun 2020 – Dec 2021</div>
+          </div>
+          <div class="timeline-description">
+            Provided L2/L3 technical support and maintained infrastructure for distributed workforce of 300+ users.
+          </div>
+          <ul class="timeline-achievements">
+            <li>Implemented monitoring solution (Nagios) that improved system uptime from 97% to 99.5%</li>
+            <li>Designed and deployed secure remote access solution using VPN and zero-trust architecture principles</li>
+            <li>Created comprehensive documentation library that reduced onboarding time for new IT staff by 50%</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-title">Help Desk Technician</div>
+              <div class="timeline-company">MSP Services Inc. • Sacramento, CA</div>
+            </div>
+            <div class="timeline-date">Mar 2019 – May 2020</div>
+          </div>
+          <div class="timeline-description">
+            Delivered frontline technical support for multiple clients across various industries.
+          </div>
+          <ul class="timeline-achievements">
+            <li>Maintained 98% customer satisfaction score while resolving 50+ tickets daily</li>
+            <li>Identified and documented recurring issues, leading to development of preventive maintenance procedures</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projects -->
+    <div class="card card-full">
+      <h3 class="section-title">Featured Projects</h3>
+      
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title">🚀 Automated Onboarding Pipeline</div>
+          <div class="project-links">
+            <a href="#" class="project-link">GitHub</a>
+          </div>
+        </div>
+        <div class="project-description">
+          Developed end-to-end automation pipeline for employee onboarding using PowerShell and Microsoft Graph API. 
+          Automatically provisions Azure AD accounts, assigns licenses, configures email, and enrolls devices in Intune. 
+          Reduced onboarding time from 4 hours to 15 minutes.
+        </div>
+        <div class="tech-tags">
+          <span class="tech-tag">PowerShell</span>
+          <span class="tech-tag">Azure AD</span>
+          <span class="tech-tag">Microsoft Graph API</span>
+          <span class="tech-tag">Intune</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title">🔒 Security Compliance Dashboard</div>
+          <div class="project-links">
+            <a href="#" class="project-link">Demo</a>
+          </div>
+        </div>
+        <div class="project-description">
+          Built real-time security compliance monitoring dashboard using Python and PowerBI. Aggregates data from multiple 
+          security tools (EDR, firewall logs, Azure Security Center) to provide actionable insights and automated alerting 
+          for policy violations.
+        </div>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">PowerBI</span>
+          <span class="tech-tag">Azure</span>
+          <span class="tech-tag">REST APIs</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title">💾 Disaster Recovery Automation</div>
+        </div>
+        <div class="project-description">
+          Designed and implemented automated backup verification and disaster recovery testing framework. 
+          Schedules monthly DR drills, validates backup integrity, and generates compliance reports. 
+          Improved recovery time objective (RTO) from 8 hours to under 2 hours.
+        </div>
+        <div class="tech-tags">
+          <span class="tech-tag">Veeam</span>
+          <span class="tech-tag">PowerShell</span>
+          <span class="tech-tag">Azure Site Recovery</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="card">
+      <h3 class="section-title">Education</h3>
+      <div class="timeline-item" style="padding-left: 0;">
+        <div class="timeline-title" style="margin-bottom: 0.25rem;">Bachelor of Science in Information Technology</div>
+        <div class="timeline-company">University Name • City, State</div>
+        <div class="timeline-date" style="margin-top: 0.5rem;">Graduated 2019</div>
+        <div class="timeline-description" style="margin-top: 0.5rem;">
+          Focus: Cybersecurity & Network Administration • GPA: 3.7/4.0
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Create animated background particles
+    function createParticles() {
+      const container = document.getElementById('particles');
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        const size = Math.random() * 100 + 50;
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+        const delay = Math.random() * 20;
+        
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        particle.style.animationDelay = delay + 's';
+        
+        container.appendChild(particle);
+      }
+    }
+
+    // Animate skill bars on scroll
+    function animateSkills() {
+      const skillBars = document.querySelectorAll('.skill-progress');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.width = entry.target.style.width;
